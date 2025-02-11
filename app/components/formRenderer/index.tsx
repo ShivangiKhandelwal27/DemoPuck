@@ -28,7 +28,7 @@ const FormRenderer = (props: Props): JSX.Element => {
     <form onSubmit={handleSubmit}>
       <ul>
         {
-          items?.map(({ fieldType, fieldLabel, selectOptions = [] }, index) => {
+          items?.map(({ fieldType, fieldLabel, fieldName, selectOptions = [] }, index) => {
             if (!fieldType) return null
             return (
               <li key={index}>
@@ -37,11 +37,7 @@ const FormRenderer = (props: Props): JSX.Element => {
                   fieldLabel={fieldLabel}
                   onChange={handleFieldChange}
                   options={selectOptions}
-                  /*
-                   Keeping fieldId same as fieldLabel for simplicity.
-                   Ideally it should always be unique.
-                 */
-                  fieldId={fieldLabel?.toLowerCase() || "New Item"}
+                  fieldId={fieldName}
                 />
               </li>
             )

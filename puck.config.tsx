@@ -3,9 +3,12 @@ import FormRenderer from './app/components/formRenderer';
 import { FIELD_OPTIONS, FIELDS } from "./app/constants/Fields";
 
 type Props = {
+  HeadingBlock: {
+    title: string;
+  };
   Form: {
-    items: Array<{ fieldType: string, fieldLabel: string, }>,
-    submitButtonLabel: string
+    items: Array<{ fieldType: string, fieldLabel: string, selectOptions?: Array<{ label: string, value: string }>, fieldName: string }>,
+    submitButtonLabel: string,
   };
 };
 
@@ -15,15 +18,13 @@ export const config: Config<Props> = {
       label: "Heading Block",
       fields: {
         title: {
-          type: "string"
+          type: FIELDS.TEXT,
         },
       },
       defaultProps: {
         title: "Enter title of the form"
       },
-      render: ({ title }) => {
-        return <h2>{title}</h2>;
-      },
+      render: ({ title }) => (<h2>{title}</h2>),
     },
     Form: {
       resolveFields: ({ props: { items } }) => {
@@ -36,7 +37,11 @@ export const config: Config<Props> = {
           fieldLabel: {
             label: "Enter Field Label",
             type: FIELDS.TEXT,
-          }
+          },
+          fieldName: {
+            label: "Enter field name",
+            type: FIELDS.TEXT,
+          },
         };
         const selectOrRadioFieldType =  items.find(item => item.fieldType === FIELDS.SELECT || FIELDS.RADIO);
         let newSelectFieldOptions = undefined;
