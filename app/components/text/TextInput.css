@@ -1,0 +1,19 @@
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.text-input {
+    width: 250px;
+    padding: 10px;
+    font-size: 32px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+.text-input:focus {
+    border-color: #007bff;
+}

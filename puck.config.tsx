@@ -1,23 +1,25 @@
 import type { Config } from "@measured/puck";
+import FormRenderer from './app/components/formRenderer';
+import { FIELD_OPTIONS } from "./app/constants/Fields";
+import {ReactElement} from "react";
 
 type Props = {
-  HeadingBlock: { title: string };
+  Form: { field: ReactElement };
 };
 
 export const config: Config<Props> = {
   components: {
-    HeadingBlock: {
+    Form: {
       fields: {
-        title: { type: "text" },
+        field: {
+          type: "select",
+          options: FIELD_OPTIONS,
+        },
+        // defaultValue: {
+        //
+        // }
       },
-      defaultProps: {
-        title: "Heading",
-      },
-      render: ({ title }) => (
-        <div style={{ padding: 64 }}>
-          <h1>{title}</h1>
-        </div>
-      ),
+      render: FormRenderer,
     },
   },
 };
