@@ -1,18 +1,1 @@
-{
-  "/": {
-    "content": [
-      {
-        "type": "HeadingBlock",
-        "props": {
-          "title": "Edit this page by adding /edit to the end of the URL",
-          "id": "HeadingBlock-1694032984497"
-        }
-      }
-    ],
-    "root": {
-      "props": {
-        "title": ""
-      }
-    }
-  }
-}
+{"/":{"content":[{"type":"HeadingBlock","props":{"title":"Edit this page by adding /edit to the end of the URL","id":"HeadingBlock-1694032984497"}},{"type":"Form","props":{"id":"Form-eb82b0a7-76a5-4438-8a59-78b8f0a76474","items":[{"fieldLabel":"Name ","fieldType":"text"},{"fieldType":"number"},{}]}}],"root":{"props":{"title":""}},"zones":{}}}

@@ -11,5 +11,5 @@ export const FIELD_OPTIONS = [
   { label: "Number", value: FIELDS.NUMBER },
   { label: "Select", value: FIELDS.SELECT },
   { label: "TextArea", value: FIELDS.TEXTAREA },
-  { label: "radio", value: FIELDS.RADIO },
+  { label: "Radio", value: FIELDS.RADIO },
 ];
