@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { AutoField, FieldLabel } from "@measured/puck";
 
-const Field = ({ fieldLabel, fieldType, fieldId, onChange }) => {
+const Field = ({ fieldLabel, fieldType, fieldId, onChange, options }) => {
   const [value, setValue] = useState();
 
   const handleChange = useCallback((val) => {
@@ -12,7 +12,7 @@ const Field = ({ fieldLabel, fieldType, fieldId, onChange }) => {
   return (
     <FieldLabel label={fieldLabel}>
       <AutoField
-        field={{ type: fieldType }}
+        field={{ type: fieldType, options }}
         onChange={handleChange}
         value={value}
         id={fieldId}

@@ -4,7 +4,7 @@ import { memo, useCallback, useState } from "react";
 import Field from '../feild';
 
 interface Props {
-  items: Array<{ fieldType: string; fieldLabel: string }>;
+  items: Array<{ fieldType: string; fieldLabel: string; selectOptions?: Array<{ name: string, value: string }> }>;
   submitButtonLabel: string;
 }
 
@@ -12,7 +12,8 @@ const FormRenderer = (props: Props): JSX.Element => {
   const { items, submitButtonLabel } = props;
   const [formValues, setFormValues] = useState({});
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback(() => {
+    // FormValues against all fields will be printed below:
     console.log('Form values --->', formValues);
   }, [formValues]);
 
@@ -27,7 +28,7 @@ const FormRenderer = (props: Props): JSX.Element => {
     <form onSubmit={handleSubmit}>
       <ul>
         {
-          items?.map(({ fieldType, fieldLabel }, index) => {
+          items?.map(({ fieldType, fieldLabel, selectOptions = [] }, index) => {
             if (!fieldType) return null
             return (
               <li key={index}>
@@ -35,11 +36,12 @@ const FormRenderer = (props: Props): JSX.Element => {
                   fieldType={fieldType}
                   fieldLabel={fieldLabel}
                   onChange={handleFieldChange}
+                  options={selectOptions}
                   /*
                    Keeping fieldId same as fieldLabel for simplicity.
                    Ideally it should always be unique.
                  */
-                  fieldId={fieldLabel}
+                  fieldId={fieldLabel?.toLowerCase() || "New Item"}
                 />
               </li>
             )
