@@ -4,6 +4,7 @@ export const FIELDS = {
   SELECT: "select",
   TEXTAREA: "textarea",
   RADIO: "radio",
+  ARRAY: "array",
 };
 
 export const FIELD_OPTIONS = [

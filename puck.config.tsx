@@ -1,6 +1,6 @@
 import type { Config } from "@measured/puck";
 import FormRenderer from './app/components/formRenderer';
-import {FIELD_OPTIONS, FIELDS} from "./app/constants/Fields";
+import { FIELD_OPTIONS, FIELDS } from "./app/constants/Fields";
 
 type Props = {
   Form: {
@@ -30,44 +30,52 @@ export const config: Config<Props> = {
         let arrayFields =  {
           fieldType: {
             label: "Select Field Type",
-            type: "select",
+            type: FIELDS.SELECT,
             options: FIELD_OPTIONS,
           },
           fieldLabel: {
             label: "Enter Field Label",
-            type: "text"
+            type: FIELDS.TEXT,
           }
         };
-        const selectFieldType =  items.find(item => item.fieldType === FIELDS.SELECT);
-        let newSelectFieldOptions = {};
-        if (selectFieldType) {
+        const selectOrRadioFieldType =  items.find(item => item.fieldType === FIELDS.SELECT || FIELDS.RADIO);
+        let newSelectFieldOptions = undefined;
+        if (selectOrRadioFieldType) {
+          const radioOptions = { max: 2};
           newSelectFieldOptions = {
-            selectOptions: {
-              label: "Add options for select field",
-              type: "array",
-              arrayFields: {
-                name: "text",
-                value: "text"
-              }
-            }
+            type: FIELDS.ARRAY,
+            label: "Add options for select field",
+            arrayFields: {
+              label: {
+                type: FIELDS.TEXT,
+                label: 'Add label',
+              },
+              value: {
+                type: FIELDS.TEXT,
+                label: 'Add text',
+              },
+            },
+            ...(selectOrRadioFieldType.fieldType === FIELDS.RADIO ? radioOptions : {})
           };
         }
-        const fields = {
+        return {
           items: {
             label: "Add fields",
-            type: "array",
-            arrayFields,
+            type: FIELDS.ARRAY,
+            arrayFields: selectOrRadioFieldType ? {
+              ...arrayFields,
+              selectOptions: newSelectFieldOptions
+            } : arrayFields,
           },
           submitButtonLabel: {
             label: "Submit button Label",
-              type: "text"
+            type: FIELDS.TEXT,
           },
-          ...newSelectFieldOptions,
         };
-        return fields;
       },
       defaultProps: {
         submitButtonLabel: "Submit",
+        items: [],
       },
       render: FormRenderer,
     },
