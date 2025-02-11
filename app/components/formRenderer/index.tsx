@@ -1,37 +1,55 @@
-import { memo, useCallback } from "react";
-import { FIELDS_VS_COMPONENT } from "../../helpers/Field";
-import { AutoField, FieldLabel } from "@measured/puck";
+import { memo, useCallback, useState } from "react";
+
+// components
+import Field from '../feild';
 
 interface Props {
   items: Array<{ fieldType: string; fieldLabel: string }>;
+  submitButtonLabel: string;
 }
 
 const FormRenderer = (props: Props): JSX.Element => {
-  const { items } = props;
-  console.log('hola inside forRenderer', props);
+  const { items, submitButtonLabel } = props;
+  const [formValues, setFormValues] = useState({});
 
-  const handleChange = useCallback((e) => {
+  const handleSubmit = useCallback((e) => {
+    console.log('Form values --->', formValues);
+  }, [formValues]);
 
+  const handleFieldChange = useCallback((fieldId, value) => {
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
+      [fieldId]: value,
+    }))
   }, []);
 
   return (
+    <form onSubmit={handleSubmit}>
       <ul>
         {
           items?.map(({ fieldType, fieldLabel }, index) => {
             if (!fieldType) return null
             return (
               <li key={index}>
-                <FieldLabel label={fieldLabel}>
-                  <AutoField
-                    field={{ type: fieldType }}
-                    onChange={handleChange}
-                  />
-                </FieldLabel>
+                <Field
+                  fieldType={fieldType}
+                  fieldLabel={fieldLabel}
+                  onChange={handleFieldChange}
+                  /*
+                   Keeping fieldId same as fieldLabel for simplicity.
+                   Ideally it should always be unique.
+                 */
+                  fieldId={fieldLabel}
+                />
               </li>
             )
           })
         }
       </ul>
+      <button type="submit">
+        {submitButtonLabel}
+      </button>
+    </form>
   )
 };
 
